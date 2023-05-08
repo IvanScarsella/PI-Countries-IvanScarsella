@@ -1,6 +1,11 @@
 const { saveAllActivities, createActivityDB } = require("../controllers/activitiesController");
 
 const getActivities = async (req, res) => {
+
+    const { id } = req.params;
+
+    const source = isNaN(id) ? "bdd" : "api";
+    
     try {
         const response = await saveAllActivities();
         res.status(200).json({ response })

@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { getFirstsCountries, getCountryDetail } = require("../handlers/countriesHandler")
+const { getFirstsCountries, getCountryDetail, searchCountryByName } = require("../handlers/countriesHandler")
 
 const routesCountries = Router();
 
@@ -7,6 +7,6 @@ routesCountries.get("/all", getFirstsCountries)
 
 routesCountries.get("/:id", getCountryDetail)
 
-routesCountries.get("/", getFirstsCountries)
+routesCountries.get(`/all/:id`, searchCountryByName)
 
 module.exports = routesCountries;

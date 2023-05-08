@@ -1,5 +1,9 @@
 const { getCountryById, getCountryByName, getAllCountries } = require("../controllers/countriesController");
 
+// const countriesHandler = async () => {
+//     if (!req.params.id && !req.query.name)
+// }
+
 const getCountryDetail = async (req, res) => {
 
     const { id } = req.params;
@@ -17,25 +21,38 @@ const getCountryDetail = async (req, res) => {
 }
 
 const getFirstsCountries = async (req, res) => {
-
-    const { name } = req.query;
+    
+    // const { name } = req.query;
 
     try {
-        if (name) {
-            const countryByName = await getCountryByName(name);
-            return res.status(200).json(countryByName);
-        }
-        else {
+        // if (name) {
+        //     const countryByName = await getCountryByName(name);
+        //     return res.status(200).json(countryByName);
+        // }
+        // else {
             const response = await getAllCountries();
             return res.status(200).json(response);
-        }
+        // }
     } catch (error) {
         console.log(error);
         res.status(400).json({ error: error.message })
     }
 }
 
+const searchCountryByName = async (req, res) => {
+     const { name } = req.params.id;
+
+     try {
+        const response = await getCountryByName(req.params.id);
+        res.status(200).json(response);
+     } catch (error) {
+        console.log(error);
+        res.status(400).json({ error: error.message })
+     }
+}
+
 module.exports = {
     getCountryDetail,
-    getFirstsCountries
+    getFirstsCountries,
+    searchCountryByName
 }

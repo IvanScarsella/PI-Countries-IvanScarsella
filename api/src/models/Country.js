@@ -23,7 +23,8 @@ module.exports = (sequelize) => {
     },
     capital: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      defultValue: "unknown"
     },
     subregion: {
       type: DataTypes.STRING,
