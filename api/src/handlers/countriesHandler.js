@@ -1,4 +1,4 @@
-const { getCountryById, getCountryByName, getAllCountries } = require("../controllers/countriesController");
+const { getCountryById, getCountryByName, getCountriesApi } = require("../controllers/countriesController");
 
 // const countriesHandler = async () => {
 //     if (!req.params.id && !req.query.name)
@@ -30,7 +30,7 @@ const getFirstsCountries = async (req, res) => {
         //     return res.status(200).json(countryByName);
         // }
         // else {
-            const response = await getAllCountries();
+            const response = await getCountriesApi();
             return res.status(200).json(response);
         // }
     } catch (error) {
