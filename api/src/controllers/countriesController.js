@@ -1,9 +1,8 @@
 const axios = require("axios");
 const { Country, Activity } = require("../db");
-const infoCleaner = require("../utils/genericFunctions")
+// const infoCleaner = require("../utils/genericFunctions")
 const { Sequelize } = require("sequelize");
-const { Op } = require("sequelize");
-const { info } = require("console");
+// const { Op } = require("sequelize");
 
 const getAllCountries = async () => {
 
@@ -108,7 +107,6 @@ const getCountryByName = async function (name) {
     //     return { error: error.message }
     // }
 
-    const nameLC = name.toLowerCase();
     const allCountries = getAllCountries()
 
     try{
@@ -116,7 +114,7 @@ const getCountryByName = async function (name) {
 
             const country = await Country.findAll({
                 where: 
-                { name: Sequelize.where( Sequelize.fn('LOWER', Sequelize.col('name')), 'LIKE', '%' + nameLC + '%')
+                { name: Sequelize.where( Sequelize.fn('LOWER', Sequelize.col('name')), 'LIKE', '%' + name.toLowerCase() + '%')
             },
             
             raw: true
@@ -134,4 +132,4 @@ const getCountryByName = async function (name) {
 
 }
 
-module.exports = { getCountryById, getCountriesApi, getCountryByName }
+module.exports = { getCountryById, getCountriesApi, getCountryByName, getAllCountries }
