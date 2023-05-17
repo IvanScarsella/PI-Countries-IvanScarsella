@@ -29,38 +29,38 @@ const createActivityDB = async (act) => {
 
     await dbComplete();
 
-    let newActivity = {         // creo nuevo objetos con datos de la actividad pasada x body
-        name,
-        difficulty,
-        duration,
-        season,
-        country
-    }
-    // const newActivity = await Activity.create({
-    //     name: act.name,
-    //     difficulty: act.difficulty,
-    //     duration: act.duration,
-    //     season: act.season,
-    //     countries: act.countries
-    // })
-    const [activity, created] = await Activity.findOrCreate({       // busco si existe, sino la creo 
-        where: newActivity
-    });
-    console.log(created ? 'Se creo la actividad' : 'La actividad ya existe');
-    // console.log(activity)
-    country.forEach(async (c) => {
-        const country = await Country.findOne({ where: { name: c } }); // para cada pais pasado lo busco
-        if (country) { await activity.addCountry(country) };            // y le agrego la actividad pasada
-    });
-    let msg = `Se creo la actividad ${activity.name}.`
-    // Promise.all(Activity.countries.map(async element => {
-    //     let activityCountrie = await Country.findOne({
-    //         where: {
-    //             id: element
-    //         }
-    //     })
-    //     await newActivity.addCountry(activityCountrie)
-    // }));
+    // let newActivity = {         // creo nuevo objetos con datos de la actividad pasada x body
+    //     name,
+    //     difficulty,
+    //     duration,
+    //     season,
+    //     country
+    // }
+    const newActivity = await Activity.create({
+        name: act.name,
+        difficulty: act.difficulty,
+        duration: act.duration,
+        season: act.season,
+        country: act.country
+    })
+    // const [activity, created] = await Activity.findOrCreate({       // busco si existe, sino la creo 
+    //     where: newActivity
+    // });
+    // console.log(created ? 'Se creo la actividad' : 'La actividad ya existe');
+    // // console.log(activity)
+    // country.forEach(async (c) => {
+    //     const country = await Country.findOne({ where: { name: c } }); // para cada pais pasado lo busco
+    //     if (country) { await activity.addCountry(country) };            // y le agrego la actividad pasada
+    // });
+    // let msg = `Se creo la actividad ${activity.name}.`
+    Promise.all(Activity.country.map(async element => {
+        let activityCountrie = await Country.findOne({
+            where: {
+                id: element
+            }
+        })
+        await newActivity.addCountry(activityCountrie)
+    }));
 
     // crear una ruta para ver todas las actividades creadas
 }

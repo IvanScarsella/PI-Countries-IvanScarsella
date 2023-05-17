@@ -10,10 +10,10 @@ function Card({ country }) {
                 <h2 className='name'>{name}</h2>
                 <img className='flag' src={flag} alt="country flag" />
                 <p className='continent'>{continent}</p>
-                <p className='capital'>{capital}</p>
+                {/* <p className='capital'>{capital}</p>
                 <p className='subregion'>{subregion}</p>
                 <p className='area'>{area}</p>
-                <p className='population'>{population}</p>
+                <p className='population'>{population}</p> */}
             </Link>
         </div>
     );

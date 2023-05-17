@@ -72,9 +72,11 @@ function Home() {
     }, [allCountries])
 
     useEffect(() => {
-        dispatch(getCountries());
+        if (!allCountries){
+            dispatch(getCountries())
+        }
         dispatch(getByName(searchString));
-        dispatch(getCountries());
+        // dispatch(getCountries());
         dispatch(clearFilters());
         // return (() => {
         //     clearDetail()          // completar
