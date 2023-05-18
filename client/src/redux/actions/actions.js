@@ -14,6 +14,7 @@ export const FILTER_COUNTRIES = "FILTER_COUNTRIES";
 export const CLEAR_FILTERS = "CLEAR_FILTERS";
 export const GET_ACTIVITIES = "GET_ACTIVITIES";
 export const CREATE_ACTIVITY = "CREATE_ACTIVITY";
+export const GET_CONTINENTS = "GET_CONTINENTS";
 
 export function getCountries() {
     return async function (dispatch) {
@@ -111,9 +112,9 @@ export function restartCurrentPage(allCountries) {
     }
 }
 
-export const filterCountries = (allCountries, {/* */ }) => {
+export const filterCountries = (allCountries, { continent, activity, order }) => {
 
-    const results = getFilteredCountries(allCountries, {/* */ })
+    const results = getFilteredCountries(allCountries, { continent, activity, order })
 
     const passToPages = getCurrentPages(results).payload
 
@@ -123,9 +124,24 @@ export const filterCountries = (allCountries, {/* */ }) => {
     }
 }
 
-function getFilteredCountries(allCountries, {/*  */ }) {
+function getFilteredCountries(allCountries, { continent, activity, order }) {
     let results = [...allCountries]
-
+    
+    if (continent) {
+        // let countriesFiltered = [];
+        let filterByContinent = results.filter(country =>
+            country.continent === continent
+        )
+        // let flag = false;
+        // country.continent.forEach(c => {
+        //     const some = c === continent
+        //     if (some) flag = true
+        // })
+        // if (flag) return country
+        // else return null
+        
+        results = filterByContinent
+    }
     // if (genre) {
     //     let filterByGenre = results.filter(game => {
     //         let flag = false
@@ -250,13 +266,37 @@ export function createActivity(data) {
         try {
             await axios.post(`http://localhost:3001/activities/`, data).then((result) => {
                 return dispatch({
-                type: CREATE_ACTIVITY,
-                payload: result
-            })
+                    type: CREATE_ACTIVITY,
+                    payload: result
+                })
             })
         } catch (error) {
             console.log(error.message)
             throw new Error('No se ha podido crear la actividad')
+        }
+    }
+}
+
+export function getContinents() {
+    return async function (dispatch) {
+        try {
+            const countries = await axios.get("http://localhost:3001/countries/all")
+            // const continents = countries.data;
+            let continents = [];
+            countries.data.forEach(country => {
+                continents.push(country.continent)
+            });
+            let allContinents = [];
+            continents.forEach(continent => {
+                if (allContinents.includes(continent))
+                    allContinents.push(continent)
+            })
+            return dispatch({
+                type: GET_CONTINENTS,
+                payload: allContinents
+            })
+        } catch (error) {
+            console.log(error.message);
         }
     }
 }

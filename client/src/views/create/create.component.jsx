@@ -18,26 +18,26 @@ function Create() {
         difficulty: "",
         duration: "",
         season: "",
-        country: [],
+        country: ""
     })
 
     const validate = (input) => {
         let error = {}
-        const regexName = new RegExp('^[A-Za-z0-9 ]+$', 'i');
+        const regexName = new RegExp('^[ a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', 'i');
         if (!input.name) {
             error.name = "Inserte un nombre"
-        } if (input.name.length > 40) {
+        } if (input.name && input.name.length > 40) {
             error.name = "El nombre debe tener menos de 40 caracteres"
-        } if (!regexName.test(input.name)) {
-            error.name = "el nombre debe contener solo letras y números"
+        } if (input.name && !regexName.test(input.name)) {
+            error.name = "el nombre debe contener solo letras"
         } if (!input.difficulty || input.difficulty < 1 || input.difficulty > 5 || isNaN(input.difficulty)) {
             error.difficulty = "La dificultad debe ser un número entre 1 y 5"
         } if (!input.duration || input.duration < 1 || input.duration > 12 || isNaN(input.duration)) {
             error.duration = "La duración debe estar entre 1 y 12 horas"
-        // } if (input.season.length === 0) {
-        //     error.season = "Seleccione al menos una estación"
+        } if (!input.season) {
+            error.season = "Seleccione una estación del año"
         } if (input.country.length === 0) {
-            input.error = "Seleccione al menos un país"
+            error.country = "Seleccione al menos un país"
         }
         return error
     }
@@ -133,6 +133,7 @@ function Create() {
             }))
         }
     }
+
     return (
         <div className="Create">
             <Link to='/landing'>
@@ -160,7 +161,7 @@ function Create() {
                 <label htmlFor="season">Estación</label>
                 <select name="season" value={input.season.length === 0 ? "" : input.season[input.season.length - 1]}
                     onChange={handleChangeInput}>
-                    <option>Seleccione al menos una opción</option>
+                    {input.season ? <option selected>Seleccionada: {input.season}</option> : <option>Seleccione una estación del año</option>}
                     {seasons?.map((season => {
                         return <option name={season?.name} key={season?.name} value={season?.name}>{season?.name}</option>
                     }))}
@@ -202,7 +203,7 @@ function Create() {
                         })}
                     </div>}
 
-                {error.name || error.difficulty || error.duration || error.season || error.country ? null
+                {error.name || error.difficulty || error.duration || error.season || error.country || !input.name ? null
                     : <button type='submit'>Submit</button>}
             </form>
         </div>

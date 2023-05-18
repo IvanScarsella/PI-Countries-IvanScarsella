@@ -1,22 +1,22 @@
 import {
     GET_COUNTRIES, GET_BY_NAME, GET_CURRENT_PAGES, CLEAR_FILTERS, GET_COUNTRY_DETAIL,
     CLEAR_DETAIL, INCREASE_PAGE, DECREASE_PAGE, CHANGE_PAGE, FILTER_CHANGE_VALUE,
-    FILTER_COUNTRIES, RESTART_CURRENT_PAGE, GET_ACTIVITIES, CREATE_ACTIVITY
+    FILTER_COUNTRIES, RESTART_CURRENT_PAGE, GET_ACTIVITIES, CREATE_ACTIVITY, GET_CONTINENTS
 } from "../actions/actions";
 
 let initialState = {
     allCountries: [],
     countryDetail: {},
     page: 1, // página actual
-    pages: 0, // páginar totales
+    pages: 0, // páginas totales
     currentPages: [],
     filters: {
-        // genre: "",
-        // platform: "",
-        // order: "",
-        // originData: ""
+         continent: "",
+         activity: "",
+         order: "",
     },
-    allActivities: []
+    allActivities: [],
+    continents: []
 };
 
 function rootReducer(state = initialState, action) {
@@ -69,10 +69,13 @@ function rootReducer(state = initialState, action) {
                 pages: action.payload.length,
                 page: 1
             }
-        case FILTER_CHANGE_VALUE:
+        case FILTER_CHANGE_VALUE: 
             return {
                 ...state,
-                page: state.page > 1 ? state.page - 1 : state.page
+                filters: {
+                    ...state.filters,
+                    [action.payload.property]: action.payload.value
+                }
             }
         case FILTER_COUNTRIES:
             return {
@@ -86,10 +89,9 @@ function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 filters: {
-                    // genre:"",
-                    // platform: "",
-                    // order: "",
-                    // originData: ""
+                    continent:"",
+                    activity: "",
+                    order: "",
                 }
 
             }
@@ -102,6 +104,11 @@ function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 allActivities: [...state.allActivities, action.payload]
+            }
+        case GET_CONTINENTS:
+            return {
+                ...state,
+                continents: action.payload
             }
         default:
             return state;

@@ -10,9 +10,9 @@ function Navbar({ handleSubmit }) {
                 <button type='submit'
                 onClick={handleSubmit}
                 >Buscar</button>
-                {/* <FilterBy>
+                <FilterBy>
 
-                </FilterBy> */}
+                </FilterBy>
             </form>
         </div>
     );

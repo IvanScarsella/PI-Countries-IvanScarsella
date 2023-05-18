@@ -30,16 +30,17 @@ function Home() {
         }
         setFiltered(paisesFiltrados)
 
-        // if (e.target.id === 'genre' && e.target.value !== 'allGenres') {
-        //     let temporal = [];
-        //     filtered.forEach(element => {
-        //         if (element.genres.includes(e.target.value)) {
-        //             temporal.push(element)
-        //         }
-        //     });
-        //     paisesFiltrados = temporal
-        // }
-        // setFiltered(paisesFiltrados)
+        if (e.target.id === 'continent' && e.target.value !== 'allContinents') {
+            
+            let temporal = [];
+            allCountries.forEach(element => {
+                if (element.continent.includes(e.target.value)) {
+                    temporal.push(element)
+                }
+            });
+            paisesFiltrados = temporal
+        }
+        setFiltered(paisesFiltrados)
 
         // if ((e.target.id === 'platform') && (e.target.value !== 'allPlatforms')) { // filtro por plataforma
         //     let temporal = []
@@ -62,8 +63,12 @@ function Home() {
         //     paisesFiltrados = temporal
         // }
         // setFiltered(paisesFiltrados)
+
     }
 
+    if(searchString) dispatch(getCurrentPages(filtered))
+    if(!searchString && filtered) dispatch(getCurrentPages(filtered))
+    
     useEffect(() => {
         if (allCountries) {
             setFiltered(allCountries)
@@ -71,18 +76,21 @@ function Home() {
         }
     }, [allCountries])
 
-    useEffect(() => {
+    useEffect( async () => {
         if (!allCountries){
             dispatch(getCountries())
         }
+        
         dispatch(getByName(searchString));
         // dispatch(getCountries());
         dispatch(clearFilters());
+        setFiltered(allCountries)
+        dispatch(getCurrentPages(allCountries))
         // return (() => {
         //     clearDetail()          // completar
         // })
     }, [dispatch])
-
+    console.log(filtered);
     return (
         <div className="Home">
             <h2 className="Home-title">PI Countries</h2>

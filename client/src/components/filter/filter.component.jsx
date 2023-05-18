@@ -1,53 +1,61 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCurrentPages, restartCurrentPage, clearFilters, filterChangeValue, filterCountries, getCountries, /* getGenres, getPaltforms */ } from "../../redux/actions/actions";
+import {
+    getCurrentPages, restartCurrentPage, clearFilters, filterChangeValue,
+    filterCountries, getCountries, getContinents, /* getGenres, getPaltforms */
+} from "../../redux/actions/actions";
 import "../filter/filter.styles.css";
 
-export default function FilterBy () {
+export default function FilterBy() {
     const [flagExecuteFilterCountries, setFlagExecuteFilterCountries] = useState(false);
 
-    let { allCountries, filters, page, pages, /* apiPlatforms, apiGenres */} = useSelector(state => state);
+    let { allCountries, filters, page, pages, /* continents */ } = useSelector(state => state);
+
+    const continents = ["South America", "North America", "Antarctica", "Asia", "Africa", "Europe", "Oceania"]
+
     const dispatch = useDispatch();
 
     const handleChangeValue = (e) => {
+        dispatch(clearFilters())
         dispatch(filterChangeValue(e.target.name, e.target.value))
         setFlagExecuteFilterCountries(prev => !prev)
     }
-
-    useEffect(() => {
-        dispatch(getCountries())
-        // dispatch(getPlarforms())
-        dispatch(filterCountries(allCountries. filters))
-    }, [dispatch, allCountries, filters, flagExecuteFilterCountries])
-
-    allCountries = useSelector(s => s.allCountries)
-
-    useEffect(() => {
-        if (pages > page) {
-            dispatch(getCurrentPages(allCountries))
-        }
-    }, [dispatch, allCountries, pages, page])
 
     const handleRestart = () => {
         const find = Object.values(filters).find(e => e !== "")
         if (find) {
             dispatch(clearFilters())
             dispatch(restartCurrentPage(allCountries))
+            // dispatch(getCurrentPages(allCountries))
+            
         }
     }
 
+    useEffect(() => {
+        // dispatch(getContinents())
+        dispatch(filterCountries(allCountries, filters))
+    }, [dispatch, allCountries, filters, flagExecuteFilterCountries])
+
+    // allCountries = useSelector(s => s.allCountries)
+
+    // useEffect(() => {
+    //     if (pages > page) {
+    //         dispatch(getCurrentPages(allCountries))
+    //     }
+    // }, [dispatch, allCountries, pages, page])
+    
     return (
         <form>
             <h1 className="filter">Puede filtrar los países y ordenarlos</h1>
             <div>
-                {/* <select name="genre" value={filters.genre} onChange={handleChangeValue} id='genre'>
-                    <option value="allGenres" >Género</option>
-                    {apiGenres[0]?.map(genre => {
-                        return <option name={genre.name} key={genre.name} value={genre.name}>{genre.name}</option>
+                {<select name="continent" value={filters.continent} onChange={handleChangeValue} id='continent'>
+                    <option value="allContinents" defaultValue>Continente</option>
+                    {continents.map(continent => {
+                        return <option name={continent} key={continent} value={continent}>{continent}</option>
                     })}
                 </select>
 
-                <select name="platform" value={filters.platform} onChange={handleChangeValue} id='platform'>
+                /*<select name="platform" value={filters.platform} onChange={handleChangeValue} id='platform'>
                     <option value="allPlatform" >Género</option>
                     {apiGenres[0]?.map(platform => {
                         return <option name={platform.name} key={platform.name} value={platform.name}>{platform.name}</option>
