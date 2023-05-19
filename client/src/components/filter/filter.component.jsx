@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
     getCurrentPages, restartCurrentPage, clearFilters, filterChangeValue,
-    filterCountries, getCountries, getContinents, /* getGenres, getPaltforms */
+    filterCountries, getCountries, getContinents, getActivities
 } from "../../redux/actions/actions";
 import "../filter/filter.styles.css";
 
 export default function FilterBy() {
     const [flagExecuteFilterCountries, setFlagExecuteFilterCountries] = useState(false);
 
-    let { allCountries, filters, page, pages, /* continents */ } = useSelector(state => state);
+    let { allCountries, filters, page, pages, allActivities } = useSelector(state => state);
 
     const continents = ["South America", "North America", "Antarctica", "Asia", "Africa", "Europe", "Oceania"]
 
@@ -27,12 +27,13 @@ export default function FilterBy() {
             dispatch(clearFilters())
             dispatch(restartCurrentPage(allCountries))
             // dispatch(getCurrentPages(allCountries))
-            
+
         }
     }
 
     useEffect(() => {
         // dispatch(getContinents())
+        dispatch(getActivities())
         dispatch(filterCountries(allCountries, filters))
     }, [dispatch, allCountries, filters, flagExecuteFilterCountries])
 
@@ -43,17 +44,25 @@ export default function FilterBy() {
     //         dispatch(getCurrentPages(allCountries))
     //     }
     // }, [dispatch, allCountries, pages, page])
-    
+
     return (
         <form>
             <h1 className="filter">Puede filtrar los países y ordenarlos</h1>
             <div>
-                {<select name="continent" value={filters.continent} onChange={handleChangeValue} id='continent'>
+                {<><select name="continent" value={filters.continent} onChange={handleChangeValue} id='continent'>
                     <option value="allContinents" defaultValue>Continente</option>
                     {continents.map(continent => {
-                        return <option name={continent} key={continent} value={continent}>{continent}</option>
+                        return <option name={continent} key={continent} value={continent}>{continent}</option>;
                     })}
                 </select>
+
+                    <select name="activity" value={filters.activity} onChange={handleChangeValue} id='activity'>
+                        <option value="allActivities" defaultValue>Actividad turística</option>
+                        {allActivities.map(activity => {
+                            return <option name={activity.name} key={activity.name} value={activity.name}>{activity.name}</option>;
+                        })}
+                    </select></>
+
 
                 /*<select name="platform" value={filters.platform} onChange={handleChangeValue} id='platform'>
                     <option value="allPlatform" >Género</option>
