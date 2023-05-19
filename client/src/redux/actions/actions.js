@@ -172,17 +172,17 @@ function getFilteredCountries(allCountries, { continent, activity, order }) {
     // //orden
     // if (order) {
     //     switch (order) {
-    //         case "max-min":
-    //             results = results.sort((a, b) => b.rating - a.rating);
-    //             break;
-    //         case "min-max":
-    //             results = results.sort((a, b) => a.rating - b.rating);
-    //             break;
     //         case "A-Z":
-    //             results = results.sort((a, b) => a.name.localeCompare(b.name))
+    //         results = results.sort((a, b) => a.name.localeCompare(b.name));
     //             break;
     //         case "Z-A":
     //             results = results.sort((a, b) => b.name.localeCompare(a.name))
+    //             break;
+    //         case "Ascendente":
+    //             results = results.sort((a, b) => b.population - a.population);
+    //             break;
+    //         case "Descendente":
+    //             results = results.sort((a, b) => a.population - b.population);
     //             break;
     //         default:
     //             break;

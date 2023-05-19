@@ -18,6 +18,7 @@ export default function FilterBy() {
     const handleChangeValue = (e) => {
         dispatch(clearFilters())
         dispatch(filterChangeValue(e.target.name, e.target.value))
+        dispatch(filterCountries(allCountries, filters))
         setFlagExecuteFilterCountries(prev => !prev)
     }
 
@@ -59,25 +60,32 @@ export default function FilterBy() {
                     <select name="activity" value={filters.activity} onChange={handleChangeValue} id='activity'>
                         <option value="allActivities" defaultValue>Actividad turística</option>
                         {allActivities.map(activity => {
-                            return <option name={activity.name} key={activity.name} value={activity.name}>{activity.name}</option>;
+                            let actividad = `${activity.name} \n Dificultad: ${activity.difficulty}, Duración: ${activity.duration}`;
+                            let actividadSeparadaEnDos = actividad.split("\n");
+                            let actividadSeparadaEnRenglones = actividadSeparadaEnDos[0] + '\n' + actividadSeparadaEnDos[1]
+                            return <option name={activity.name} key={activity.name} value={activity.name} title={actividadSeparadaEnRenglones}>{activity.name}</option>;
                         })}
-                    </select></>
+                    </select>
+                    
+                    <select name="order" value={filters.order} onChange={handleChangeValue} id='order'>
+                        <option value="" defaultValue>Orden</option>
+
+                        <optgroup label="alfabético">
+                            <option value="A-Z">A-Z</option>
+                            <option value="Z-A">Z-A</option>
+                        </optgroup>
+
+                        <optgroup label="población">
+                        <option value="Ascendente">Ascendente</option>
+                        <option value="Descendente">Descendente</option>
+                        </optgroup>
+                    </select>
+                    
+                    </>
 
 
-                /*<select name="platform" value={filters.platform} onChange={handleChangeValue} id='platform'>
-                    <option value="allPlatform" >Género</option>
-                    {apiGenres[0]?.map(platform => {
-                        return <option name={platform.name} key={platform.name} value={platform.name}>{platform.name}</option>
-                    })}
-                </select>
 
-                <select name="originData" value={filters.originData} onChange={handleChangeValue} id='created'>
-                    <option value="allOrigins">Origen</option>
-                    <option value="all">Todos</option>
-                    <option value="db">DB</option>
-                    <option value="api">API</option>
-                </select>
-
+                /*
                 <select name="order" value={filters.order} onChange={handleChangeValue} id='order'>
                     <option value ="" >Orden</option>
 

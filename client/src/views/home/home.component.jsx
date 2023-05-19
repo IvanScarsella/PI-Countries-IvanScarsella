@@ -14,7 +14,7 @@ function Home() {
     const allCountries = useSelector((state) => state.allCountries);
 
     const allActivities = useSelector((state) => state.allActivities);
-    
+
     const [searchString, setSearchString] = useState("");
 
     const [filtered, setFiltered] = useState(allCountries);
@@ -83,6 +83,26 @@ function Home() {
         }
         setFiltered(paisesFiltrados)
 
+        if (e.target.id === 'order' && e.target.value !== "") {
+            let paisesOrdenados = [];
+            switch (e.target.value) {
+                case "A-Z":
+                    paisesOrdenados = filtered.sort((a, b) => a.name.localeCompare(b.name));
+                    break;
+                case "Z-A":
+                    paisesOrdenados = filtered.sort((a, b) => b.name.localeCompare(a.name))
+                    break;
+                case "Ascendente":
+                    paisesOrdenados = filtered.sort((a, b) => b.population - a.population);
+                    break;
+                case "Descendente":
+                    paisesOrdenados = filtered.sort((a, b) => a.population - b.population);
+                    break;
+                default:
+                    break;
+            }
+            setFiltered(paisesOrdenados)
+        }
         // if ((e.target.id === 'platform') && (e.target.value !== 'allPlatforms')) { // filtro por plataforma
         //     let temporal = []
         //     filtered.forEach(element => {
@@ -117,13 +137,12 @@ function Home() {
         }
     }, [allCountries])
 
-    useEffect( () => {
+    useEffect(() => {
         if (!allCountries) {
             dispatch(getCountries())
         }
 
         dispatch(getByName(searchString));
-        // dispatch(getCountries());
         dispatch(clearFilters());
         setFiltered(allCountries)
         dispatch(getCurrentPages(allCountries))
