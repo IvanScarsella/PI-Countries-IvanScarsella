@@ -26,7 +26,6 @@ function Detail() {
 
         return dispatch(clearDetail())
     }, [dispatch, id])
-    console.log(country.flag);
 
     return (
         <>

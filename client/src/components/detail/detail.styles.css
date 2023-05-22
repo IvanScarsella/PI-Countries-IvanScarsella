@@ -1,4 +1,52 @@
+.Detail {
+    border: 5px solid #49708a;
+    background-color: #e0bf8213;
+    background-image: linear-gradient(#caff4254,
+            #caff4254), url("https://storage.googleapis.com/pod_public/750/95880.jpg");
+    border: 5px solid #49708a;
+    border-radius: 10px;
+}
+
 img {
-    max-width: 600px;
-    max-height: 600px;
+    max-width: 500px;
+    max-height: 500px;
+}
+
+h1 {
+    background-color: #b9f5b377;
+    font-size: 60px;
+    font-family: fantasy;
+}
+
+p {
+    font-size: 40px;
+    background-color: #b9f5b377;
+    font-family: fantasy;
+}
+
+h3 {
+    color: aliceblue
+}
+
+.countryName {
+    font-size: 50px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: #b9f5b377;
+}
+
+.details {
+    font-size: 35px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: left;
+    text-align: center;
+}
+
+.detailButton {
+    font-size: 20px;
+    width: 150px;
+    height: 40px;
+}
+
+.detailButton:hover {
+    transform: scale(1.15);
 }

@@ -1,0 +1,19 @@
+.search-box {
+    -webkit-appearance: none;
+    border: none;
+    outline: none;
+    padding: 10px;
+    width: 550px;
+    line-height: 30px;
+    margin-bottom: 30px;
+    background-color: #c9ff4254;
+    border-radius: 10px;
+}
+
+.input {
+    border-radius: 10px;
+}
+
+.navbarTitle {
+    font-size: 30px;
+}

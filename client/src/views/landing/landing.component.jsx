@@ -9,7 +9,7 @@ export default function Landing() {
                 <h2>Creado por Iván Scarsella para <b className="henry">Henry</b></h2>
                 <button className="henryButton">
                     <a href="https://www.soyhenry.com/" target="_blank" rel="noopener noreferrer"><img src="https://www.soyhenry.com/_next/image?url=https%3A%2F%2Fassets.soyhenry.com%2Fhenry-landing%2Fassets%2FHenry%2Flogo-white.png&w=128&q=75" /></a>
-                </button>"
+                </button>
             </div>
 
             <div >
@@ -20,6 +20,9 @@ export default function Landing() {
                     <button className="landingButton">Click aquí para crear una actividad</button>
                 </Link>
             </div>
+                <Link to="/activities">
+                    <button className="landingButton">Click aquí para ver todas las actividades</button>
+                </Link>
         </div>
     )
 }

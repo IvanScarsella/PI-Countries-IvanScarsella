@@ -1,0 +1,35 @@
+.Create {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin: 30px;
+}
+
+label {
+    font-size: 25px;
+    margin: 10px;
+    margin-bottom: 30px;
+}
+
+input {
+    width: 100px;
+}
+
+.backToLanding {
+    margin: 20px;
+}
+
+.errorLabel {
+    color: #66007a;
+}
+
+.createForm {
+    background-color: #f5e23a6e;
+
+}
+
+.deleteButton {
+    max-width: 40px;
+    max-height: 40px;
+    padding-bottom: 5px;
+    color: #ffffff;
+    background-color: red;
+}

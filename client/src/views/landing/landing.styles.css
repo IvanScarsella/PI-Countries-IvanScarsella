@@ -1,0 +1,42 @@
+.landingContainer {
+    height: 100px;
+    /* width: 100px; */
+}
+
+h1 {
+    font-size: 50px;
+}
+
+h2 {
+    font-size: 40px;
+}
+
+a {
+    font-size: 30px;
+    /* color: #fffb00; */
+}
+
+.landingButton {
+    font-size: 24px;
+    width: auto;
+    height: auto;
+}
+
+.landingButton:hover {
+    transform: 1.15;
+}
+
+.henry {
+    color: #fffb00;
+}
+
+.henryButton {
+    background-color: black;
+    width: 180px;
+    height: 100px;
+}
+
+.henryButton:hover {
+    transform: 1.15;
+    padding: 20px;
+}

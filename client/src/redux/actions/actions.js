@@ -81,7 +81,7 @@ export function getCurrentPages(currentCountries) {
             let i = 2
 
             while (max > 1) {
-                slicedCountries.push([i, countries.slice(20 * (i - 1), 20 * i)])
+                slicedCountries.push([i, countries.slice(10 * (i - 1), 10 * i)])
                 i++
                 max--
             }

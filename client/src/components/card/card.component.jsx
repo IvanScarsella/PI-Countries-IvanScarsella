@@ -5,10 +5,10 @@ function Card({ country }) {
     const { id, name, flag, continent, capital, subregion, area, population } = country;
 
     return (
-        <div className="card-container">
+        <div className="card-conteiner">
             <Link to={`/detail/${id}`}>
-                <h2 className='name'>{name}</h2>
                 <img className='flag' src={flag} alt="country flag" />
+                <h2 className='name'>{name}</h2>
                 <p className='continent'>{continent}</p>
                 <p className='population'>{population}</p>
             </Link>

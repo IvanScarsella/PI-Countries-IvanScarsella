@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { createActivity, changePage, getCountries, getActivities } from "../../redux/actions/actions";
-// import "./create.styles.css";
+import "../create/create.styles.css";
 
 function Create() {
     const [input, setInput] = useState({

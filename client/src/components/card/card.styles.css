@@ -1,0 +1,50 @@
+.card-conteiner {
+    display: flex;
+    flex-direction: column;
+    background-image: linear-gradient(#caff4254,
+    #caff4254), url("https://storage.googleapis.com/pod_public/750/95880.jpg");
+    border: 5px solid #49708a;
+    border-radius: 10px;
+    padding: 30px;
+    cursor: pointer;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    transition: transform 0.15s ease-out;
+    max-width: 100%;
+}
+
+.card-conteiner:hover {
+    transform: scale(1.10);
+}
+
+.name {
+    color: #202221;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 500;
+    font-size: 1.6em;
+    text-align: center;
+}
+
+.continent {
+    color: #494d4b;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 100;
+    font-size: 20px;
+}
+
+.population {
+    color: #494d4b;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 100;
+    font-size: 20px;
+}
+
+.flag {
+    height: 150px;
+    border: 3px solid #88abc2;
+    max-width: 250px;
+}
+
+p {
+    padding: 10px;
+}
