@@ -26,20 +26,33 @@ function Home() {
         e.preventDefault();
 
         if (e.target.id === 'busqueda') {
-            setSearchString(e.target.value)
-            if (!paisesFiltrados.length)
-                allCountries.forEach(country => {
-                    if (country.name.toLowerCase().includes(e.target.value.toLowerCase()))
-                        paisesFiltrados.push(country)
-                })
+            // if(filtered){
+            //     setSearchString(e.target.value)
+            //     if (!paisesFiltrados.length)
+            //     filtered.forEach(country => {
+            //         if (country.name.toLowerCase().includes(e.target.value.toLowerCase()))
+            //         paisesFiltrados.push(country)
+            //     })
+            // } else {
+                setSearchString(e.target.value)
+                if (!paisesFiltrados.length){
+
+                    let temporal = [];
+                    allCountries.forEach(country => {
+                        if (country.name.toLowerCase().includes(e.target.value.toLowerCase()))
+                        temporal.push(country)
+                    })
+                    paisesFiltrados = temporal;
+                }
+            // }
         }
         setFiltered(paisesFiltrados)
 
         if (e.target.id === 'continent' && e.target.value !== 'allContinents') {
 
-            if(paisesFiltrados.length > 1){
+            if (filters.continent) {
                 let temporal = [];
-                paisesFiltrados.forEach(country => {
+                allCountries.forEach(country => {
                     if (country.continent.includes(e.target.value)) {
                         temporal.push(country)
                     }
@@ -47,7 +60,7 @@ function Home() {
                 paisesFiltrados = temporal
             } else {
                 let temporal = [];
-                allCountries.forEach(country => {
+                filtered.forEach(country => {
                     if (country.continent.includes(e.target.value)) {
                         temporal.push(country)
                     }
@@ -57,105 +70,49 @@ function Home() {
         }
         setFiltered(paisesFiltrados)
 
-        // if (e.target.id === 'continent' && e.target.value !== "allContinents") {
-        //     let paisesFiltradosPorContinente = [];
-        //     switch (e.target.value) {
-        //         case "South America":
-        //             let southAmericaCountries = [];
-        //             allCountries.forEach(country => {
-        //                 if (country.continent.includes(e.target.value)) {
-        //                     southAmericaCountries.push(country)
-        //                 }
-        //             });
-        //             paisesFiltradosPorContinente = southAmericaCountries
-        //             break;
-        //         case "North America":
-        //             let northAmericaCountries = [];
-        //             allCountries.forEach(country => {
-        //                 if (country.continent.includes(e.target.value)) {
-        //                     northAmericaCountries.push(country)
-        //                 }
-        //             });
-        //             paisesFiltradosPorContinente = northAmericaCountries
-        //             break;
-        //         case "Antarctica":
-        //             let antarcticaCountries = [];
-        //             allCountries.forEach(country => {
-        //                 if (country.continent.includes(e.target.value)) {
-        //                     antarcticaCountries.push(country)
-        //                 }
-        //             });
-        //             paisesFiltradosPorContinente = antarcticaCountries
-        //             break;
-        //         case "Asia":
-        //             let asiaCountries = [];
-        //             allCountries.forEach(country => {
-        //                 if (country.continent.includes(e.target.value)) {
-        //                     asiaCountries.push(country)
-        //                 }
-        //             });
-        //             paisesFiltradosPorContinente = asiaCountries
-        //             break;
-        //         case "Africa":
-        //             let africaCountries = [];
-        //             allCountries.forEach(country => {
-        //                 if (country.continent.includes(e.target.value)) {
-        //                     africaCountries.push(country)
-        //                 }
-        //             });
-        //             paisesFiltradosPorContinente = africaCountries
-        //             break;
-        //         case "Europe":
-        //             let europeCountries = [];
-        //             allCountries.forEach(country => {
-        //                 if (country.continent.includes(e.target.value)) {
-        //                     europeCountries.push(country)
-        //                 }
-        //             });
-        //             paisesFiltradosPorContinente = europeCountries
-        //             break;
-        //         case "Oceania":
-        //             let oceaniaCountries = [];
-        //             allCountries.forEach(country => {
-        //                 if (country.continent.includes(e.target.value)) {
-        //                     oceaniaCountries.push(country)
-        //                 }
-        //             });
-        //             paisesFiltradosPorContinente = oceaniaCountries
-        //             break;
-        //             default: 
-        //             break;
-        //         }
-        //         paisesFiltrados = paisesFiltradosPorContinente;
-        //         setFiltered(paisesFiltrados)
-        // }
+
 
         if (e.target.id === 'activity' && e.target.value !== 'allActivities') {
             let paisesConActividades = []
             let activity = allActivities.find(activity => activity.name === e.target.value);
+            // console.log(allActivities, "ALL ACTIVITIES")
 
             for (let i = 0; i < allActivities.length; i++) {  // paisesConActividades queda como un array de arrays que contienen los países con actividades
                 paisesConActividades.push(allActivities[i].country)
             }
 
+            // console.log(paisesConActividades, "PAISES CON ACTIVIDADES")
             let paisesConActividadesSeparados = [];
 
             paisesConActividades.forEach(array => {// paisesConActividadesSeparados queda como un array que incluye solo el nombre de los países con actividades
                 for (let i = 0; i < array.length; i++) {
+                    if(!paisesConActividadesSeparados.includes(array[i]))
                     paisesConActividadesSeparados.push(array[i])
                 }
             })
-
+            // console.log(paisesConActividadesSeparados, "PAISES CON ACTIVIDADE SEPARADOS")
             let paisesParaMostrar = [];
 
-            for (let i = 0; i < paisesConActividadesSeparados.length; i++) { // paisesParaMostrar queda como un array que contiene los objetos de los paises con actividades turisticas
-                allCountries.forEach(country => {
-                    if (country.name === paisesConActividadesSeparados[i]) {
-                        paisesParaMostrar.push(country)
-                    }
-                })
-            }
+            if (filters.activity) {
 
+                for (let i = 0; i < paisesConActividadesSeparados.length; i++) { // paisesParaMostrar queda como un array que contiene los objetos de los paises con actividades turisticas
+                    allCountries.forEach(country => {
+                        if (country.name === paisesConActividadesSeparados[i]) {
+                            paisesParaMostrar.push(country)
+                        }
+                    })
+                }
+            } else {
+
+                for (let i = 0; i < paisesConActividadesSeparados.length; i++) { // paisesParaMostrar queda como un array que contiene los objetos de los paises con actividades turisticas
+                    filtered.forEach(country => {
+                        if (country.name === paisesConActividadesSeparados[i]) {
+                            paisesParaMostrar.push(country)
+                        }
+                    })
+                }
+            }
+            // console.log(paisesParaMostrar, "PAISES PARA MOSTRAR")
             let paisesRenderizados = [];
 
             for (let i = 0; i < activity.country.length; i++) { // paisesFiltrados queda como un array con los paises con las actividades para renderizar
@@ -164,6 +121,7 @@ function Home() {
                         paisesRenderizados.push(country)
                 })
             }
+            // console.log(paisesRenderizados, "PAISES RENDERIZADOS")
             paisesFiltrados = paisesRenderizados
         }
         setFiltered(paisesFiltrados)
@@ -208,12 +166,13 @@ function Home() {
         dispatch(getByName(searchString));
         dispatch(clearFilters());
         setFiltered(allCountries)
-        dispatch(getCurrentPages(allCountries))
+        dispatch(getCurrentPages(filtered))
         // return (() => {
         //     clearDetail()          // completar
         // })
     }, [dispatch])
 
+    // console.log(allActivities);
     return (
         <div className="Home">
             <h2 className="Home-title">PI Countries</h2>

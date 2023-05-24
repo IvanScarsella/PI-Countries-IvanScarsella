@@ -6,7 +6,8 @@ body {
     text-align: center;
     background-image: linear-gradient(#d0e0ebdc,
             #d0e0ebdc), url("https://storage.googleapis.com/pod_public/750/95880.jpg");
-
+    background-attachment: fixed;
+    background-size: 100%;
 }
 
 .Home-title {

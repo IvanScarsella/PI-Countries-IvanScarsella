@@ -13,7 +13,7 @@ const getAllCountries = async () => {
     
     try{
         
-        const countriesApi = await axios('https://restcountries.com/v3/all') //llamo al endpont  de la api 
+        const countriesApi = await axios('https://rest-countries.up.railway.app/v3/all') //llamo al endpont  de la api // https://restcountries.com/v3/all
         const apiData = countriesApi.data?.map( async country => {
             await Country.findOrCreate({ //await, porque no se sabe cuento tarda a la respuesta entonces tengo que avisar
                 where:{

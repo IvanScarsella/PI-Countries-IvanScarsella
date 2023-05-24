@@ -20,20 +20,40 @@ export default function Menu() {
 
     const changePageFunct = (p) => {
         dispatch(changePage(Number(p)))
+        console.log(p);
     }
 
+    const paginaActual = {
+        'background-color': '#9fbabd',
+        'font-size': '1.5em',
+        'padding': '3px 3px',
+        'height': 'auto'
+    };
+
     return (
-        <div className='div_menu'>
+        <>
             <p>Páginas</p>
-            {page !== 1 && <button onClick={() => dispatch(decreasePage())}>anterior</button>}
-            {
-                arrPages.map((p, index) => {
-                    return <button key={p}
-                    className='button'
-                    onClick={() => changePageFunct(p)}>{p}</button>
-                })
-            }
-            {page !== pages && <button onClick={() => dispatch(increasePage())}>siguiente</button>}
-        </div>
+            <p>actual: {page}</p>
+            <div className='div_menu'>
+                {page !== 1 && <button onClick={() => dispatch(decreasePage())}>anterior</button>}
+                {
+                    arrPages.map((p, index) => {
+                        if(p === page){
+
+                            return <button key={p}
+                            style={paginaActual}
+                            className='button'
+                            onClick={() => changePageFunct(p)}>{p}</button>
+                        } else {
+                            return <button key={p}
+                            className='button'
+                            onClick={() => changePageFunct(p)}>{p}</button>
+
+                        }
+                    })
+                }
+                {page !== pages && <button onClick={() => dispatch(increasePage())}>siguiente</button>}
+            </div>
+        </>
     )
 }

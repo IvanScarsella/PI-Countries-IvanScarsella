@@ -9,24 +9,35 @@ import './detail.styles.css';
 function Detail() {
     const { id } = useParams()
     const dispatch = useDispatch()
-    
+
     const allCountries = useSelector((state) => state.allCountries);
     // if(!allCountries) = 
 
     const country = useCountry(state => state.countryDetail);
 
-    
-    
-    const { name, flag, continent, capital, subregion, area, population } = country;
+    const { name, flag, continent, capital, subregion, area, population, activities } = country;
+
+    const arrayActivities = [];
+
+    country.activities?.forEach(activity => {
+        arrayActivities.push(activity.name)
+    });
+
+    const imagenFondo = {
+        'background-image': `linear-gradient(#ffffff3f,
+            #ffffff5f), url(${(flag)})`,
+        'background-size': '100%'
+    }
+
     useEffect(() => {
-        if (!allCountries){
+        if (!allCountries) {
             dispatch(getCountries())
         }
         dispatch(getCountryDetail(id))
 
         return dispatch(clearDetail())
     }, [dispatch, id])
-
+    console.log(country);
     return (
         <>
             <div>
@@ -37,7 +48,7 @@ function Detail() {
                 </div>
 
                 {country.flag ?
-                    <div className='Detail'>
+                    <div className='Detail' style={imagenFondo}>
                         <div>
                             <div />
                             <img src={(country?.flag?.match(/\.(jpeg|jpg|gif|png|svg)$/) || !country.flag) ? country?.flag : "https://img.freepik.com/vector-premium/globo-terraqueo-3d-ilustracion-vector-latitud-longitud_599851-239.jpg?w=2000"} alt="country flag" />
@@ -49,11 +60,12 @@ function Detail() {
                                 <p className='details'><b>Capital: </b>{country?.capital}</p>
                                 <p className='details'><b>Superficie: </b>{country?.area} km²</p>
                                 <p className='details'><b>Población: </b>{country?.population}</p>
+                                <p className='details'><b>Actividades: </b>{arrayActivities.join(", ")}</p>
                             </div>
                         </div>
                     </div>
                     : <h3>Cargando...</h3>}
-                    </div>
+            </div>
         </>
     );
 }

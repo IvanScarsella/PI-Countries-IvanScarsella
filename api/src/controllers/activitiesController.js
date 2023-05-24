@@ -53,10 +53,11 @@ const createActivityDB = async (act) => {
     //     if (country) { await activity.addCountry(country) };            // y le agrego la actividad pasada
     // });
     // let msg = `Se creo la actividad ${activity.name}.`
-    Promise.all(Activity.country.map(async element => {
+    console.log(newActivity.country);
+    Promise.all(newActivity.country.map(async element => {
         let activityCountrie = await Country.findOne({
             where: {
-                id: element
+                name: element
             }
         })
         await newActivity.addCountry(activityCountrie)

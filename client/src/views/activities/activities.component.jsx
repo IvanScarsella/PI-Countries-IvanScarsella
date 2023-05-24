@@ -13,18 +13,19 @@ function Activities() {
 
     let [actividadesOrdenadas, setActividadesOrdenadas] = useState(allActivities);
 
+    let [orden, setOrden] = useState("A-Z")
+
     function handleChangeOrder(e) {
-        let orden = [];
-        switch (e.target.value) {
-            case "A-Z": orden = allActivities.sort((a, b) => a.name.localeCompare(b.name));
-                break;
-            case "Z-A": orden = allActivities.sort((a, b) => b.name.localeCompare(a.name));
-                break;
-            default: orden = allActivities.sort((a, b) => a.name.localeCompare(b.name));
-                break;
-        }
-        setActividadesOrdenadas(orden)
+        setOrden(e.target.value)
     }
+
+    if(orden === "A-Z") actividadesOrdenadas = allActivities?.sort((a, b) => a.name.localeCompare(b.name));
+    if(orden === "Z-A") actividadesOrdenadas = allActivities?.sort((a, b) => b.name.localeCompare(a.name));
+    if(orden === "Dificultad: menor a mayor") actividadesOrdenadas = allActivities?.sort((a, b) => a.difficulty - b.difficulty);
+    if(orden === "Dificultad: mayor a menor") actividadesOrdenadas = allActivities?.sort((a, b) => b.difficulty - a.difficulty);
+    if(orden === "Duración: menor a mayor") actividadesOrdenadas = allActivities?.sort((a, b) => a.duration - b.duration);
+    if(orden === "Duración: mayor a menor") actividadesOrdenadas = allActivities?.sort((a, b) => b.duration - a.duration);
+    
 
     useEffect(() => {
         if (!allActivities) {
@@ -32,7 +33,7 @@ function Activities() {
         }
         dispatch(getActivities())
     }, [dispatch])
-
+// console.log(actividadesOrdenadas);
     return (
         <>
             <div>
@@ -46,10 +47,14 @@ function Activities() {
                     <option value="" defaultValue>Orden</option>
                     <option value="A-Z">A-Z</option>
                     <option value="Z-A">Z-A</option>
+                    <option value="Dificultad: menor a mayor">Dificultad: menor a mayor</option>
+                    <option value="Dificultad: mayor a menor">Dificultad: mayor a menor</option>
+                    <option value="Duración: menor a mayor">Duración: menor a mayor</option>
+                    <option value="Duración: mayor a menor">Duración: mayor a menor</option>
                 </select>
 
                 {
-                    actividadesOrdenadas ?
+                    // actividadesOrdenadas ?
                         actividadesOrdenadas?.map((activity) => (
                             <>
                                 <h2 className='activityName'>{activity.name}</h2>
@@ -59,20 +64,18 @@ function Activities() {
                                 <p>Países: {activity.country.join(", ")}</p>
                             </>
                         ))
-                        :
-                        allActivities?.map((activity) => (
-                            <>
-                                <h2 className='activityName'>{activity.name}</h2>
-                                <p>Dificultad: {activity.difficulty}</p>
-                                <p>Duración: {activity.duration}</p>
-                                <p>Estación del año: {activity.season}</p>
-                                <p>Países: {activity.country.join(", ")}</p>
-                            </>
-                        ))
+                        // : 
+                        // allActivities?.map((activity) => (
+                        //     <>
+                        //         <h2 className='activityName'>{activity.name}</h2>
+                        //         <p>Dificultad: {activity.difficulty}</p>
+                        //         <p>Duración: {activity.duration}</p>
+                        //         <p>Estación del año: {activity.season}</p>
+                        //         <p>Países: {activity.country.join(", ")}</p>
+                        //     </>
+                        // ))
                 }
             </div>
-            {/* </div> */}
-
         </>
     );
 }

@@ -191,7 +191,7 @@ function Create() {
                 </select>
                 {error.country ? <label className='errorLabel'>{error.country}</label>
                     : <div >
-                        {input.country.map((d, index) => {
+                        {input.country.sort((a, b) => a.localeCompare(b)).map((d, index) => {
                             if (d !== 'Seleccione al menos una opción') {
                                 return (<>
                                     <button className='deleteButton' key={index} type="button" onClick={() => deleteSelectedValue("country", d)}>X</button>

@@ -59,7 +59,7 @@ export default function FilterBy() {
 
                     <select name="activity" value={filters.activity} onChange={handleChangeValue} id='activity'>
                         <option value="allActivities" defaultValue>Actividad turística</option>
-                        {allActivities.map(activity => {
+                        {allActivities.sort((a, b) => a.name.localeCompare(b.name)).map(activity => {
                             switch (activity.season) {
                                 case "Summer": activity.season = "Verano"; break;
                                 case "Autumn": activity.season = "Otoño"; break;
