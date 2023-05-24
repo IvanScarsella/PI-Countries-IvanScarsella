@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getActivities } from '../../redux/actions/actions';
 import { Link } from 'react-router-dom';
+import Navigate from '../../components/navigate/navigate';
 import './activities.styles.css';
 
 function Activities() {
@@ -35,11 +36,7 @@ function Activities() {
     return (
         <>
             <div>
-                <div>
-                    <Link to={'/landing'}>
-                        <button className='activitiesButton'>Volver a la landing page</button>
-                    </Link>
-                </div>
+                    <Navigate/>
                 <h1>Listado de actividades</h1>
                 <select name="order" onChange={handleChangeOrder} id='order'>
                     <option value="" defaultValue>Orden</option>

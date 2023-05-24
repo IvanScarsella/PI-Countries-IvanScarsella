@@ -12,17 +12,17 @@ export default function Landing() {
                 </button>
             </div>
 
-            <div >
+            <div className="buttons">
                 <Link to="/home"> 
                     <button className="landingButton">Click aquí para acceder a la página principal</button>
                 </Link>
                 <Link to="/create">
                     <button className="landingButton">Click aquí para crear una actividad</button>
                 </Link>
-            </div>
                 <Link to="/activities">
                     <button className="landingButton">Click aquí para ver todas las actividades</button>
                 </Link>
+            </div>
         </div>
     )
 }

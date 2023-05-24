@@ -5,6 +5,7 @@ import { getByName, getCountries, getCurrentPages, clearFilters, } from "../../r
 import Navbar from "../../components/navbar/navbar.component";
 import Cards from "../../components/cards/cards.component";
 import Menu from "../../components/menu/menu.component";
+import Navigate from "../../components/navigate/navigate";
 import "./home.styles.css";
 
 function Home() {
@@ -158,10 +159,9 @@ function Home() {
 
     return (
         <div className="Home">
+            <Navigate/>
+            
             <h2 className="Home-title">PI Countries</h2>
-            <Link to="/landing">
-                <button className="backToLanding">Volver a la landing Page</button>
-            </Link>
 
             <Navbar handleSubmit={handleSubmit} />
 

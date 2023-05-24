@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import Navigate from "../../components/navigate/navigate";
 import { createActivity, changePage, getCountries, getActivities } from "../../redux/actions/actions";
 import "../create/create.styles.css";
 
@@ -135,9 +136,7 @@ function Create() {
 
     return (
         <div className="Create">
-            <Link to='/landing'>
-                <button className='backToLanding'>Volver a la landing Page</button>
-            </Link>
+            <Navigate/>
             <form className='createForm' onSubmit={handleSubmitForm}>
                 <div>
                     <label>Nombre</label>
