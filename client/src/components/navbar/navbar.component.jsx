@@ -1,5 +1,5 @@
-import './navbar.styles.css';
 import FilterBy from '../filter/filter.component';
+import './navbar.styles.css';
 
 function Navbar({ handleSubmit }) {
     return (
@@ -8,7 +8,7 @@ function Navbar({ handleSubmit }) {
             <form onChange={handleSubmit}>
                 <input placeholder='Búsqueda' type="search" id='busqueda' />
                 <button type='submit'
-                onClick={handleSubmit}
+                    onClick={handleSubmit}
                 >Buscar</button>
                 <FilterBy>
 

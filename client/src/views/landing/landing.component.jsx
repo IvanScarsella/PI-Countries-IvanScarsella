@@ -6,14 +6,14 @@ export default function Landing() {
         <div className="landingContainer">
             <div>
                 <h1>Bienvenido al Proyecto Individual: Countries</h1>
-                <h2>Creado por Iván Scarsella para <b className="henry">Henry</b></h2>
+                <h2>Creado por Iván Scarsella para <a href="https://www.soyhenry.com/" target="_blank" rel="noopener noreferrer"><b className="henry">Henry</b></a></h2>
                 <button className="henryButton">
-                    <a href="https://www.soyhenry.com/" target="_blank" rel="noopener noreferrer"><img src="https://www.soyhenry.com/_next/image?url=https%3A%2F%2Fassets.soyhenry.com%2Fhenry-landing%2Fassets%2FHenry%2Flogo-white.png&w=128&q=75" /></a>
+                    <a href="https://www.soyhenry.com/" target="_blank" rel="noopener noreferrer"><img src="https://www.soyhenry.com/_next/image?url=https%3A%2F%2Fassets.soyhenry.com%2Fhenry-landing%2Fassets%2FHenry%2Flogo-white.png&w=128&q=75" alt="henry-logo"/></a>
                 </button>
             </div>
 
             <div >
-                <Link to="/home">
+                <Link to="/home"> 
                     <button className="landingButton">Click aquí para acceder a la página principal</button>
                 </Link>
                 <Link to="/create">

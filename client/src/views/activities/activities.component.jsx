@@ -1,8 +1,6 @@
-import useCountry from '../../hooks/useCountry';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCountryDetail, clearDetail, getCountries, getActivities } from '../../redux/actions/actions';
+import { getActivities } from '../../redux/actions/actions';
 import { Link } from 'react-router-dom';
 import './activities.styles.css';
 
@@ -11,7 +9,7 @@ function Activities() {
 
     const allActivities = useSelector((state) => state.allActivities);
 
-    let [actividadesOrdenadas, setActividadesOrdenadas] = useState(allActivities);
+    let [actividadesOrdenadas,/*  setActividadesOrdenadas */] = useState(allActivities);
 
     let [orden, setOrden] = useState("A-Z")
 
@@ -19,13 +17,13 @@ function Activities() {
         setOrden(e.target.value)
     }
 
-    if(orden === "A-Z") actividadesOrdenadas = allActivities?.sort((a, b) => a.name.localeCompare(b.name));
-    if(orden === "Z-A") actividadesOrdenadas = allActivities?.sort((a, b) => b.name.localeCompare(a.name));
-    if(orden === "Dificultad: menor a mayor") actividadesOrdenadas = allActivities?.sort((a, b) => a.difficulty - b.difficulty);
-    if(orden === "Dificultad: mayor a menor") actividadesOrdenadas = allActivities?.sort((a, b) => b.difficulty - a.difficulty);
-    if(orden === "Duración: menor a mayor") actividadesOrdenadas = allActivities?.sort((a, b) => a.duration - b.duration);
-    if(orden === "Duración: mayor a menor") actividadesOrdenadas = allActivities?.sort((a, b) => b.duration - a.duration);
-    
+    if (orden === "A-Z") actividadesOrdenadas = allActivities?.sort((a, b) => a.name.localeCompare(b.name)); // ordeno las actividades según el estado local 'orden'
+    if (orden === "Z-A") actividadesOrdenadas = allActivities?.sort((a, b) => b.name.localeCompare(a.name));
+    if (orden === "Dificultad: menor a mayor") actividadesOrdenadas = allActivities?.sort((a, b) => a.difficulty - b.difficulty);
+    if (orden === "Dificultad: mayor a menor") actividadesOrdenadas = allActivities?.sort((a, b) => b.difficulty - a.difficulty);
+    if (orden === "Duración: menor a mayor") actividadesOrdenadas = allActivities?.sort((a, b) => a.duration - b.duration);
+    if (orden === "Duración: mayor a menor") actividadesOrdenadas = allActivities?.sort((a, b) => b.duration - a.duration);
+
 
     useEffect(() => {
         if (!allActivities) {
@@ -33,7 +31,7 @@ function Activities() {
         }
         dispatch(getActivities())
     }, [dispatch])
-// console.log(actividadesOrdenadas);
+
     return (
         <>
             <div>
@@ -54,26 +52,15 @@ function Activities() {
                 </select>
 
                 {
-                    // actividadesOrdenadas ?
-                        actividadesOrdenadas?.map((activity) => (
-                            <>
-                                <h2 className='activityName'>{activity.name}</h2>
-                                <p>Dificultad: {activity.difficulty}</p>
-                                <p>Duración: {activity.duration}</p>
-                                <p>Estación del año: {activity.season}</p>
-                                <p>Países: {activity.country.join(", ")}</p>
-                            </>
-                        ))
-                        // : 
-                        // allActivities?.map((activity) => (
-                        //     <>
-                        //         <h2 className='activityName'>{activity.name}</h2>
-                        //         <p>Dificultad: {activity.difficulty}</p>
-                        //         <p>Duración: {activity.duration}</p>
-                        //         <p>Estación del año: {activity.season}</p>
-                        //         <p>Países: {activity.country.join(", ")}</p>
-                        //     </>
-                        // ))
+                    actividadesOrdenadas?.map((activity) => (
+                        <>
+                            <h2 className='activityName'>{activity.name}</h2>
+                            <p>Dificultad: {activity.difficulty}</p>
+                            <p>Duración: {activity.duration}</p>
+                            <p>Estación del año: {activity.season}</p>
+                            <p>Países: {activity.country.join(", ")}</p>
+                        </>
+                    ))
                 }
             </div>
         </>

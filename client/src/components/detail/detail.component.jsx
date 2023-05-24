@@ -1,5 +1,5 @@
 import useCountry from '../../hooks/useCountry';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCountryDetail, clearDetail, getCountries } from '../../redux/actions/actions';
@@ -11,21 +11,20 @@ function Detail() {
     const dispatch = useDispatch()
 
     const allCountries = useSelector((state) => state.allCountries);
-    // if(!allCountries) = 
 
     const country = useCountry(state => state.countryDetail);
 
-    const { name, flag, continent, capital, subregion, area, population, activities } = country;
+    // const { name, flag, continent, capital, subregion, area, population, activities } = country;
 
     const arrayActivities = [];
 
-    country.activities?.forEach(activity => {
+    country.activities?.forEach(activity => { // guardo en un array cada actividad
         arrayActivities.push(activity.name)
     });
 
-    const imagenFondo = {
+    const imagenFondo = { // css para tener la imagen de fondo de la bandera del país
         'background-image': `linear-gradient(#ffffff3f,
-            #ffffff5f), url(${(flag)})`,
+            #ffffff5f), url(${(country.flag)})`,
         'background-size': '100%'
     }
 
@@ -36,8 +35,8 @@ function Detail() {
         dispatch(getCountryDetail(id))
 
         return dispatch(clearDetail())
-    }, [dispatch, id])
-    console.log(country);
+    }, [dispatch, id, allCountries])
+
     return (
         <>
             <div>

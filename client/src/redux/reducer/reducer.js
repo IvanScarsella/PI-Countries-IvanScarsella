@@ -9,7 +9,7 @@ let initialState = {
     countryDetail: {},
     page: 1, // página actual
     pages: 0, // páginas totales
-    currentPages: [],
+    currentPages: [], // [1, 2, 3, 4 ... ]
     filters: {
          continent: "",
          activity: "",

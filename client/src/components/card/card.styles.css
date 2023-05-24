@@ -1,8 +1,6 @@
 .card-conteiner {
     display: flex;
     flex-direction: column;
-    background-image: linear-gradient(#caff4254,
-    #caff4254), url("https://storage.googleapis.com/pod_public/750/95880.jpg");
     border: 5px solid #49708a;
     border-radius: 10px;
     padding: 30px;
@@ -25,14 +23,7 @@
     text-align: center;
 }
 
-.continent {
-    color: #494d4b;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-weight: 100;
-    font-size: 20px;
-}
-
-.population {
+.continent .population {
     color: #494d4b;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-weight: 100;

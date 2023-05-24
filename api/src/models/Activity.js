@@ -6,7 +6,6 @@ module.exports = (sequelize) => {
   sequelize.define('activity', {
     id: {
       type: DataTypes.INTEGER,
-      // allowNull: true,
       primaryKey: true,
       autoIncrement: true
     },
@@ -32,8 +31,3 @@ module.exports = (sequelize) => {
     }
   }, { timestamps: false });
 };
-// ID. *
-// Nombre. *
-// Dificultad (número del 1 al 5). *
-// Duración (en horas).
-// Temporada (Verano, Otoño, Invierno o Primavera). *

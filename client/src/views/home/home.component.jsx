@@ -25,15 +25,7 @@ function Home() {
         let paisesFiltrados = [];
         e.preventDefault();
 
-        if (e.target.id === 'busqueda') {
-            // if(filtered){
-            //     setSearchString(e.target.value)
-            //     if (!paisesFiltrados.length)
-            //     filtered.forEach(country => {
-            //         if (country.name.toLowerCase().includes(e.target.value.toLowerCase()))
-            //         paisesFiltrados.push(country)
-            //     })
-            // } else {
+        if (e.target.id === 'busqueda') { // búsqueda por nombre
                 setSearchString(e.target.value)
                 if (!paisesFiltrados.length){
 
@@ -44,11 +36,10 @@ function Home() {
                     })
                     paisesFiltrados = temporal;
                 }
-            // }
         }
         setFiltered(paisesFiltrados)
 
-        if (e.target.id === 'continent' && e.target.value !== 'allContinents') {
+        if (e.target.id === 'continent' && e.target.value !== 'allContinents') { // filtro por continente
 
             if (filters.continent) {
                 let temporal = [];
@@ -72,16 +63,14 @@ function Home() {
 
 
 
-        if (e.target.id === 'activity' && e.target.value !== 'allActivities') {
+        if (e.target.id === 'activity' && e.target.value !== 'allActivities') { // filtro por actividad
             let paisesConActividades = []
             let activity = allActivities.find(activity => activity.name === e.target.value);
-            // console.log(allActivities, "ALL ACTIVITIES")
 
             for (let i = 0; i < allActivities.length; i++) {  // paisesConActividades queda como un array de arrays que contienen los países con actividades
                 paisesConActividades.push(allActivities[i].country)
             }
 
-            // console.log(paisesConActividades, "PAISES CON ACTIVIDADES")
             let paisesConActividadesSeparados = [];
 
             paisesConActividades.forEach(array => {// paisesConActividadesSeparados queda como un array que incluye solo el nombre de los países con actividades
@@ -90,7 +79,7 @@ function Home() {
                     paisesConActividadesSeparados.push(array[i])
                 }
             })
-            // console.log(paisesConActividadesSeparados, "PAISES CON ACTIVIDADE SEPARADOS")
+
             let paisesParaMostrar = [];
 
             if (filters.activity) {
@@ -112,7 +101,6 @@ function Home() {
                     })
                 }
             }
-            // console.log(paisesParaMostrar, "PAISES PARA MOSTRAR")
             let paisesRenderizados = [];
 
             for (let i = 0; i < activity.country.length; i++) { // paisesFiltrados queda como un array con los paises con las actividades para renderizar
@@ -121,12 +109,11 @@ function Home() {
                         paisesRenderizados.push(country)
                 })
             }
-            // console.log(paisesRenderizados, "PAISES RENDERIZADOS")
             paisesFiltrados = paisesRenderizados
         }
         setFiltered(paisesFiltrados)
 
-        if (e.target.id === 'order' && e.target.value !== "") {
+        if (e.target.id === 'order' && e.target.value !== "") { // orden
             let paisesOrdenados = [];
             switch (e.target.value) {
                 case "A-Z":
@@ -149,7 +136,7 @@ function Home() {
         }
     }
 
-    if (searchString) dispatch(getCurrentPages(filtered))
+    if (searchString) dispatch(getCurrentPages(filtered)) // cambio la cantidad de páginas según la cantidad de países para mostrar
     if (!searchString && filtered) dispatch(getCurrentPages(filtered))
 
     useEffect(() => {
@@ -167,12 +154,8 @@ function Home() {
         dispatch(clearFilters());
         setFiltered(allCountries)
         dispatch(getCurrentPages(filtered))
-        // return (() => {
-        //     clearDetail()          // completar
-        // })
     }, [dispatch])
 
-    // console.log(allActivities);
     return (
         <div className="Home">
             <h2 className="Home-title">PI Countries</h2>

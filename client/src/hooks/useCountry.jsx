@@ -10,7 +10,7 @@ const useCountry = () => {
 
     useEffect(() => {
         dispatch(getCountryDetail(detailId));
-    },[detailId])
+    }, [dispatch, detailId])
 
     return countryDetail
 }

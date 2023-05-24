@@ -10,8 +10,8 @@ module.exports = (sequelize) => {
       allowNull: false
     },
     name: {
-        type: DataTypes.STRING,
-        allowNull: false,
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     flag: {
       type: DataTypes.STRING,
@@ -32,19 +32,11 @@ module.exports = (sequelize) => {
     },
     area: {
       type: DataTypes.INTEGER,
-      allowNull:false
+      allowNull: false
     },
     population: {
       type: DataTypes.INTEGER,
-      allowNull:false
+      allowNull: false
     }
-}, { timestamps: false });
+  }, { timestamps: false });
 };
-// ID (Código de tres letras). *
-// Nombre. *
-// Imagen de la bandera. *
-// Continente. *
-// Capital. *
-// Subregión.
-// Área.
-// Población. *

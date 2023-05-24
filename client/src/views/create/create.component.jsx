@@ -21,7 +21,18 @@ function Create() {
         country: ""
     })
 
-    const validate = (input) => {
+    const { pages, allCountries } = useSelector(state => state)
+
+    const dispatch = useDispatch();
+
+    const allActivities = useSelector((state) => state.allActivities);
+
+    const activitiesString = [];
+    allActivities.forEach(activity => {
+        activitiesString.push(activity.name.toLowerCase())
+    });
+
+    const validate = (input) => { // validaciones del form
         let error = {}
         const regexName = new RegExp('^[ a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', 'i');
         if (!input.name) {
@@ -30,6 +41,8 @@ function Create() {
             error.name = "El nombre debe tener menos de 40 caracteres"
         } if (input.name && !regexName.test(input.name)) {
             error.name = "el nombre debe contener solo letras"
+        } if (activitiesString.includes(input.name.toLowerCase())) {
+            error.name = "Ya existe una actividad con este nombre"
         } if (!input.difficulty || input.difficulty < 1 || input.difficulty > 5 || isNaN(input.difficulty)) {
             error.difficulty = "La dificultad debe ser un número entre 1 y 5"
         } if (!input.duration || input.duration < 1 || input.duration > 12 || isNaN(input.duration)) {
@@ -43,21 +56,13 @@ function Create() {
     }
 
     const seasons = [
-        {name:"Summer", index: 1},
-        {name:"Autumn", index: 2},
-        {name:"Winter", index: 3},
-        {name:"Spring", index: 4}
+        { name: "Summer", index: 1 },
+        { name: "Autumn", index: 2 },
+        { name: "Winter", index: 3 },
+        { name: "Spring", index: 4 }
     ]
 
-    const { pages, allCountries } = useSelector(state => state)
-
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(getCountries())
-    }, [dispatch])
-
-    function handleChangeInput(e) {
+    function handleChangeInput(e) { // función para cambiar los inputs del form
         setInput({
             ...input,
             [e.target.name]: e.target.value
@@ -69,25 +74,24 @@ function Create() {
         }))
     }
 
-    const handleChangeSeason = (e) => {
-        const { season } = input
-        if (e.target.value !== "Seleccione al menos una opción") {
-            const find = season.find(f => f === e.target.value)
-            // console.log();
-            if (!find) {
-                setInput({
-                    ...input,
-                    season: [...input.season, e.target.value]
-                })
-                setError(validate({
-                    ...input,
-                    [e.target.name]: e.target.value
-                }))
-            }
-        }
-    }
+    // const handleChangeSeason = (e) => { // función que contorla las estaciones del año del form
+    //     const { season } = input
+    //     if (e.target.value !== "Seleccione al menos una opción") {
+    //         const find = season.find(f => f === e.target.value)
+    //         if (!find) {
+    //             setInput({
+    //                 ...input,
+    //                 season: [...input.season, e.target.value]
+    //             })
+    //             setError(validate({
+    //                 ...input,
+    //                 [e.target.name]: e.target.value
+    //             }))
+    //         }
+    //     }
+    // }
 
-    const handleChangeCountry = (e) => {
+    const handleChangeCountry = (e) => { // función que controla los países del form
         const { country } = input
         if (e.target.value !== "Seleccione al menos una opción") {
             const find = country.find(f => f === e.target.value)
@@ -105,22 +109,12 @@ function Create() {
     }
 
     const handleSubmitForm = (e) => {
-        // e.prevent.default()
         dispatch(createActivity(input));
-        console.log(input);
-        // setInput({
-        //     name: "",
-        //     difficulty: "",
-        //     duration: "",
-        //     season: [],
-        //     country: []
-        // })
-        console.log(input);
         alert("Has creado una actividad con éxito")
         dispatch(changePage(pages))
     }
 
-    function deleteSelectedValue(property, value) {
+    function deleteSelectedValue(property, value) { // elimina el país seleccionado
         const filter = input[property].filter(p => p !== value)
         setInput({
             ...input,
@@ -133,6 +127,11 @@ function Create() {
             }))
         }
     }
+
+    useEffect(() => {
+        dispatch(getCountries())
+        dispatch(getActivities())
+    }, [dispatch])
 
     return (
         <div className="Create">
@@ -168,18 +167,7 @@ function Create() {
                 </select>
                 {error.season ? <label className='errorLabel'>{error.season}</label>
                     : null
-                    /* <div>
-                        {input.season.map((d, index) => { 
-                            if (d !== "Seleccione al menos una opción") {
-                                return (<>
-                                    <button className="deleteButton" key={index} type="button" onClick={() => deleteSelectedValue("season", d)}>X</button>
-                                    <label>{d}
-                                        {index === input?.season.length - 1 ? "" : ","}</label>
-                                </>)
-                            }
-                            return null
-                        })}
-                    </div> */}
+                }
 
                 <label htmlFor="country" >País</label>
                 <select name="country" value={input.country.length === 0 ? "" : input.country[input.country.length - 1]}

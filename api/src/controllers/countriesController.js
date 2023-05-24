@@ -4,18 +4,13 @@ const { Country, Activity } = require("../db");
 const { Sequelize } = require("sequelize");
 // const { Op } = require("sequelize");
 
-const getAllCountries = async () => {
-
-    // let infoApi = [];
-    // infoApi.push((await axios(`https://restcountries.com/v3/all`)).data)
-
-    // return infoCleaner(infoApi[0]);
+const getAllCountries = async () => { // obtengo todos los países de la api
     
     try{
         
-        const countriesApi = await axios('https://rest-countries.up.railway.app/v3/all') //llamo al endpont  de la api // https://restcountries.com/v3/all
+        const countriesApi = await axios('https://rest-countries.up.railway.app/v3/all') //llamo al endpont  de la api, el anterior era: https://restcountries.com/v3/all
         const apiData = countriesApi.data?.map( async country => {
-            await Country.findOrCreate({ //await, porque no se sabe cuento tarda a la respuesta entonces tengo que avisar
+            await Country.findOrCreate({ 
                 where:{
                     id: country.cca3,
                     name: country.name['common'],
@@ -39,8 +34,8 @@ const getAllCountries = async () => {
 const getCountriesApi = async function() {
     
     try{
-        const countriesData = await getAllCountries()
-        const getCountries = await Country.findAll({ //llamo los componentes que tengo en mi base de datos 
+        const countriesData = await getAllCountries() // espero obtener los países de la api
+        const getCountries = await Country.findAll({ // y los guardo en la base de datos
             attributes: ['id', 'name', 'flag', 'continent', "population"],
             include: {
                 model: Activity,
@@ -50,22 +45,14 @@ const getCountriesApi = async function() {
                 }
             }
         })
-        // console.log(getCountries)
         return getCountries
     } catch(error){
         console.log(error)
     }
 }
 
-const getCountryById = async (id) => {
-    // try {
-    //     const infoApi = [];
-    //     infoApi.push((await axios.get (`https://restcountries.com/v3/alpha/${id}`))
-    //     .data)
-    //     return infoCleaner(infoApi[0])
-    // } catch (error) {
-    //     console.log(error)
-    // }
+const getCountryById = async (id) => { // obtengo el detail de un país específico
+
     try{
         const countriesData = await getAllCountries()
    const iD = id.toUpperCase() // convierte en mayusculas
@@ -89,23 +76,7 @@ const getCountryById = async (id) => {
   }
 }
 
-const getCountryByName = async function (name) {
-   
-    // try {
-    //     const infoApi = (await axios.get(`https://restcountries.com/v3.1/name/${country}?fullText=true`)
-    //     ).data;
-    //     const countryApi = infoCleaner(infoApi);
-
-    //     function searchCountry(name) {
-    //         return name.name.toLowerCase() === country.toLowerCase();
-    //     }
-
-    //     let results = await countryApi.find(searchCountry);
-
-    //     if (results) return results;
-    // } catch (error) {
-    //     return { error: error.message }
-    // }
+const getCountryByName = async function (name) { // obtengo un país buscando por nombre
 
     const allCountries = getAllCountries()
 

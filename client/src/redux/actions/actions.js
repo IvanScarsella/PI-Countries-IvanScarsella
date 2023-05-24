@@ -16,7 +16,7 @@ export const GET_ACTIVITIES = "GET_ACTIVITIES";
 export const CREATE_ACTIVITY = "CREATE_ACTIVITY";
 export const GET_CONTINENTS = "GET_CONTINENTS";
 
-export function getCountries() {
+export function getCountries() { // obtiene todos los países de la base de datos
     return async function (dispatch) {
         try {
             const response = await axios.get("http://localhost:3001/countries/all");
@@ -31,7 +31,7 @@ export function getCountries() {
     }
 }
 
-export function getByName(name) {
+export function getByName(name) { // busca el país por nombre
     return async function (dispatch) {
         try {
             const response = await axios(`http://localhost:3001/countries/all?search=${name}`);
@@ -46,7 +46,7 @@ export function getByName(name) {
     }
 }
 
-export function getCountryDetail(id) {
+export function getCountryDetail(id) { // busca el país con el id determinado
     return async function (dispatch) {
         try {
             if (id) {
@@ -62,7 +62,7 @@ export function getCountryDetail(id) {
     }
 }
 
-export function clearDetail() {
+export function clearDetail() { // borro el id del país que se muestra en detail para que se pueda mostrar otro
     return async function (dispatch) {
         return dispatch({
             type: CLEAR_DETAIL,
@@ -71,7 +71,7 @@ export function clearDetail() {
     }
 }
 
-export function getCurrentPages(currentCountries) {
+export function getCurrentPages(currentCountries) { // retorna la cantidad de páginas a mostrar según la cantidad de países mostrados actualmente
     try {
         if (currentCountries) {
             let countries = currentCountries
@@ -96,7 +96,7 @@ export function getCurrentPages(currentCountries) {
     }
 }
 
-export function restartCurrentPage(allCountries) {
+export function restartCurrentPage(allCountries) { // vuelvo a la página 1
     return async function (dispatch) {
         try {
             if (allCountries) {
@@ -112,7 +112,7 @@ export function restartCurrentPage(allCountries) {
     }
 }
 
-export const filterCountries = (allCountries, { continent, activity, order }) => {
+export const filterCountries = (allCountries, { continent, activity, order }) => { // ejecuta los filtros y retorna la cantidad de páginas según la cantidad de países encontrados
 
     const results = getFilteredCountries(allCountries, { continent, activity, order })
 
@@ -124,129 +124,50 @@ export const filterCountries = (allCountries, { continent, activity, order }) =>
     }
 }
 
-function getFilteredCountries(allCountries, { continent, activity, order }) {
+function getFilteredCountries(allCountries, { continent, activity, order }) { // filtro los países
     let results = [...allCountries]
-    
+
     if (continent) {
-        // let countriesFiltered = [];
         let filterByContinent = results.filter(country =>
             country.continent === continent
         )
-        // let flag = false;
-        // country.continent.forEach(c => {
-        //     const some = c === continent
-        //     if (some) flag = true
-        // })
-        // if (flag) return country
-        // else return null
-        
         results = filterByContinent
     }
-    // if (genre) {
-    //     let filterByGenre = results.filter(game => {
-    //         let flag = false
-    //         game.genres.forEach(g => {
-    //             const some = g === genre
-    //             if (some) flag = true
-    //         })
-    //         if (flag) return game
-    //         else return null
-    //     })
-    //     results = filterByGenre
-    // }
-
-    // //filtrar por plataforma
-    // if (platform) {
-    //     let filterByPlatform = results.filter(game => {
-    //         let flag = false
-    //         game.platforms.forEach(p => {
-    //             const some = p === platform
-    //             if (some) flag = true
-    //         })
-    //         if (flag) return game
-    //         else return null
-    //     })
-    //     results = filterByPlatform
-    // }
-
-    // //orden
-    // if (order) {
-    //     switch (order) {
-    //         case "A-Z":
-    //         results = results.sort((a, b) => a.name.localeCompare(b.name));
-    //             break;
-    //         case "Z-A":
-    //             results = results.sort((a, b) => b.name.localeCompare(a.name))
-    //             break;
-    //         case "Ascendente":
-    //             results = results.sort((a, b) => b.population - a.population);
-    //             break;
-    //         case "Descendente":
-    //             results = results.sort((a, b) => a.population - b.population);
-    //             break;
-    //         default:
-    //             break;
-    //     }
-    // }
-
-    // //origen
-    // if (originData) {
-    //     switch (originData) {
-    //         case "all":
-    //             results = allGames
-    //             break;
-    //         case "db":
-    //             results = results.filter(game => {
-    //                 if (game?.id?.toString().length > 10) return game
-    //                 return null
-    //             })
-    //             break;
-    //         case "api":
-    //             results = results.filter(game => {
-    //                 if (game.id.toString().length < 10) return game
-    //                 return null
-    //             })
-    //             break;
-    //         default:
-    //             break;
-    //     }
-    // }
-
     return results
 }
 
-export function changePage(page) {
+export function changePage(page) { // cambio la páginca actual
     return {
         type: CHANGE_PAGE,
         payload: page
     }
 }
 
-export function increasePage() {
+export function increasePage() { // voy a la página siguiente
     return {
         type: INCREASE_PAGE
     }
 }
 
-export function decreasePage() {
+export function decreasePage() { // voy a la página anterior
     return {
         type: DECREASE_PAGE
     }
 }
 
-export const filterChangeValue = (property, value) => {
+export const filterChangeValue = (property, value) => { // cambio el valor del filtro
     return {
         type: FILTER_CHANGE_VALUE,
         payload: { property, value }
     }
 }
-export const clearFilters = () => {
+export const clearFilters = () => { // reinicio los filtros
     return {
         type: CLEAR_FILTERS
     }
 }
 
-export function getActivities() {
+export function getActivities() { // obtengo todas las actividades de la base de datos
     return async function (dispatch) {
         try {
             const response = await axios.get("http://localhost:3001/activities");
@@ -261,7 +182,7 @@ export function getActivities() {
     }
 }
 
-export function createActivity(data) {
+export function createActivity(data) { // obtengo los datos para crear una nueva actividad
     return async (dispatch) => {
         try {
             await axios.post(`http://localhost:3001/activities/`, data).then((result) => {
@@ -277,11 +198,10 @@ export function createActivity(data) {
     }
 }
 
-export function getContinents() {
+export function getContinents() { // obtengo todos los continentes de los países
     return async function (dispatch) {
         try {
             const countries = await axios.get("http://localhost:3001/countries/all")
-            // const continents = countries.data;
             let continents = [];
             countries.data.forEach(country => {
                 continents.push(country.continent)

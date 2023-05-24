@@ -1,5 +1,4 @@
 .div_menu {
-    /* font-size: 20px; */
     background-color: #88abc2;
     border-radius: 10px;
     text-align: center;
@@ -12,12 +11,9 @@
 .button {
     background-color: #ebf7f8;
     border-radius: 8px;
-    /* width: 34px; */
     max-width: 5%;
     min-width: 25px;
-    /* height: auto; */
     margin: 3px
-
 }
 
 .button:hover {
@@ -29,5 +25,4 @@ p {
     font-size: 30px;
     padding: auto;
     margin: auto;
-    ;
 }

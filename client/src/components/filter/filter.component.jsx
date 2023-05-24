@@ -1,50 +1,35 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-    getCurrentPages, restartCurrentPage, clearFilters, filterChangeValue,
-    filterCountries, getCountries, getContinents, getActivities
+import { restartCurrentPage, clearFilters, filterChangeValue,
+    filterCountries, getActivities
 } from "../../redux/actions/actions";
 import "../filter/filter.styles.css";
 
 export default function FilterBy() {
-    const [flagExecuteFilterCountries, setFlagExecuteFilterCountries] = useState(false);
-
-    let { allCountries, filters, page, pages, allActivities } = useSelector(state => state);
+    let { allCountries, filters, allActivities } = useSelector(state => state);
 
     const continents = ["South America", "North America", "Antarctica", "Asia", "Africa", "Europe", "Oceania"]
 
     const dispatch = useDispatch();
 
-    const handleChangeValue = (e) => {
+    const handleChangeValue = (e) => { // función para cambiar el valor del filtro
         dispatch(clearFilters())
         dispatch(filterChangeValue(e.target.name, e.target.value))
         dispatch(filterCountries(allCountries, filters))
-        setFlagExecuteFilterCountries(prev => !prev)
     }
 
-    const handleRestart = () => {
+    const handleRestart = () => { // función para borrar los filtros
         const find = Object.values(filters).find(e => e !== "")
         if (find) {
             dispatch(clearFilters())
             dispatch(restartCurrentPage(allCountries))
-            // dispatch(getCurrentPages(allCountries))
-
         }
     }
 
     useEffect(() => {
-        // dispatch(getContinents())
         dispatch(getActivities())
         dispatch(filterCountries(allCountries, filters))
-    }, [dispatch, allCountries, filters, flagExecuteFilterCountries])
-
-    // allCountries = useSelector(s => s.allCountries)
-
-    // useEffect(() => {
-    //     if (pages > page) {
-    //         dispatch(getCurrentPages(allCountries))
-    //     }
-    // }, [dispatch, allCountries, pages, page])
+    }, [dispatch, allCountries, filters])
 
     return (
         <form>
@@ -59,14 +44,17 @@ export default function FilterBy() {
 
                     <select name="activity" value={filters.activity} onChange={handleChangeValue} id='activity'>
                         <option value="allActivities" defaultValue>Actividad turística</option>
-                        {allActivities.sort((a, b) => a.name.localeCompare(b.name)).map(activity => {
+                        {allActivities
+                        .sort((a, b) => a.name.localeCompare(b.name))
+                        .map(activity => {
                             switch (activity.season) {
                                 case "Summer": activity.season = "Verano"; break;
                                 case "Autumn": activity.season = "Otoño"; break;
                                 case "Winter": activity.season = "Invierno"; break;
                                 case "Spring": activity.season = "Primavera"; break;
+                                default :
                             }
-                            let actividad = `${activity.name} \n Dificultad: ${activity.difficulty}, Duración: ${activity.duration}, Estación: ${activity.season}`;
+                            let actividad = `${activity.name} \n Dificultad: ${activity.difficulty}, Duración: ${activity.duration}, Estación: ${activity.season}`; // obtengo los datos de cada actividad y los muestro cuando paso el mouse por encima de cada opción
                             let actividadSeparadaEnDos = actividad.split("\n");
                             let actividadSeparadaEnRenglones = actividadSeparadaEnDos[0] + '\n' + actividadSeparadaEnDos[1]
                             return <option name={activity.name} key={activity.name} value={activity.name} title={actividadSeparadaEnRenglones}>{activity.name}</option>;
@@ -86,10 +74,8 @@ export default function FilterBy() {
                             <option value="Descendente">Descendente</option>
                         </optgroup>
                     </select>
-
                 </>
                 }
-
                 <div>
                     <button onClick={() => handleRestart()}> Borrar Filtro</button>
                 </div>
